@@ -83,9 +83,9 @@ const Navbar = () => {
         <div className="navbar-end">
           <span className="mr-3">Name</span>
           <div className="dropdown dropdown-end">
-            <label  className="btn btn-ghost btn-circle avatar">
+            <label className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people"  alt=""/>
+                <img src="https://placeimg.com/80/80/people" alt="" />
               </div>
             </label>
           </div>
