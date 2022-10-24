@@ -1,5 +1,10 @@
 import Main from "../layouts/Main";
+import Blog from "../pages/Blog/Blog";
+import Courses from "../pages/Courses/Courses";
+import Faq from "../pages/FAQ/Faq";
 import Home from "../pages/Home/Home";
+import Login from "../pages/Login/Login";
+import Register from "../pages/Login/Register";
 import Error from "../pages/Shared/Error";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -12,7 +17,32 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element:<Home></Home>
-            }
+            },
+            {
+                path: '/home',
+                element:<Home></Home>
+            },
+            {
+                path: '/courses',
+                element:<Courses></Courses>
+            },
+            {
+                path: '/faq',
+                element:<Faq></Faq>
+            },
+            {
+                path: '/blog',
+                element:<Blog></Blog>
+            },
+            {
+                path: '/login',
+                element:<Login></Login>
+            },
+            {
+                path: '/register',
+                element:<Register></Register>
+            },
+
         ]
     },
     {

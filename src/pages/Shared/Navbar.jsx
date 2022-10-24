@@ -28,22 +28,22 @@ const Navbar = () => {
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li className="mb-2">
-                  <Link>Home</Link>
+                  <Link to='/'>Home</Link>
                 </li>
                 <li className="mb-2">
-                  <Link>Courses</Link>
+                  <Link to='/courses'>Courses</Link>
                 </li>
                 <li className="mb-2">
-                  <Link>FAQ</Link>
+                  <Link to='/faq'>FAQ</Link>
                 </li>
                 <li className="mb-2">
-                  <Link>Blog</Link>
+                  <Link to='/blog'>Blog</Link>
                 </li>
                 <li className="mb-2">
-                  <Link>Login</Link>
+                  <Link to='login'>Login</Link>
                 </li>
                 <li className="mb-2">
-                  <Link>Register</Link>
+                  <Link to='register'>Register</Link>
                 </li>
               </ul>
             </div>
@@ -54,22 +54,22 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal p-0">
               <li className="mr-2">
-                <Link>Home</Link>
+                <Link to='/'>Home</Link>
               </li>
               <li className="mr-2">
-                <Link>Courses</Link>
+                <Link to='/courses'>Courses</Link>
               </li>
               <li className="mr-2">
-                <Link>FAQ</Link>
+                <Link to='/faq'>FAQ</Link>
               </li>
               <li className="mr-2">
-                <Link>Blog</Link>
+                <Link to='/blog'>Blog</Link>
               </li>
               <li className="mr-2">
-                <Link>Login</Link>
+                <Link to='login'>Login</Link>
               </li>
               <li className="mr-2">
-                <Link>Register</Link>
+                <Link to='register'>Register</Link>
               </li>
             </ul>
           </div>
