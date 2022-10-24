@@ -1,7 +1,21 @@
-import React from "react";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContexts/AuthProvider";
 const Register = () => {
+  const { google } = useContext(AuthContext);
+  const singInGoogle = () => {
+    const googleProvider = new GoogleAuthProvider();
+    google(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -72,7 +86,10 @@ const Register = () => {
               <div className="md:w-1/2">
                 <div className="mt-3 flex justify-between items-center">
                   <div className="form-control ">
-                    <button className="border flex items-center p-2 md:px-10 rounded-lg">
+                    <button
+                      className="border flex items-center p-2 md:px-10 rounded-lg"
+                      onClick={singInGoogle}
+                    >
                       <span>Sing In Google</span>
                       <FaGoogle className="ml-2"></FaGoogle>
                     </button>
