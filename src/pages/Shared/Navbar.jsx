@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaPinterest } from "react-icons/fa";
+import { AuthContext } from "../../contexts/AuthContexts/AuthProvider";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+  const { displayName, photoURL } = user;
+  console.log(user);
   return (
     <div>
       <div className="navbar bg-[#5A20CB] text-[#CAD5E2]">
@@ -69,23 +73,33 @@ const Navbar = () => {
             <li className="mr-2">
               <Link to="/blog">Blog</Link>
             </li>
-            <li className="mr-2">
-              <Link to="login">Login</Link>
-            </li>
-            <li className="mr-2">
-              <Link to="register">Register</Link>
-            </li>
+            {user?.uid ? (
+              <>
+                <li className="mr-2">
+                  <Link>Logout</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="mr-2">
+                  <Link to="login">Login</Link>
+                </li>
+                <li className="mr-2">
+                  <Link to="register">Register</Link>
+                </li>
+              </>
+            )}
             <li className="mr-2">
               <Link>Dark Mode</Link>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <span className="mr-3">Name</span>
+          <span className="mr-3">{user?.displayName}</span>
           <div className="dropdown dropdown-end">
             <label className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people" alt="" />
+                <img src={user?.photoURL} alt="" />
               </div>
             </label>
           </div>
