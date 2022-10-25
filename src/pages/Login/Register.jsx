@@ -3,14 +3,22 @@ import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContexts/AuthProvider";
+import toast from "react-hot-toast";
+const notify = (msg) => toast(msg);
 const Register = () => {
-  const { google, createUserByEmail,updateProfileUser } = useContext(AuthContext);
+  const {
+    google,
+    createUserByEmail,
+    updateProfileUser,
+    sendVerificationEmail,
+  } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const singInGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
     google(googleProvider)
       .then((result) => {
         const user = result.user;
+        notify('Login successfully')
         console.log(user);
       })
       .catch((error) => {
@@ -30,6 +38,7 @@ const Register = () => {
         const user = result.user;
         console.log(user);
         handleUpdateProfileUser(name, photo);
+        sendVerificationEmail();
         form.reset();
       })
       .catch((error) => {

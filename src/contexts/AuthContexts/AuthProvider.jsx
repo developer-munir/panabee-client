@@ -3,12 +3,15 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 import app from "../../firebase/firebase.config";
+import toast from "react-hot-toast";
+const notify = (msg) => toast(msg);
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -22,6 +25,12 @@ const AuthProvider = ({ children }) => {
   }
   const updateProfileUser = (info) => {
     return updateProfile(auth.currentUser, info);
+  }
+  const sendVerificationEmail = () => {
+    return sendEmailVerification(auth.currentUser)
+      .then(() => {
+      notify('Email verification sent please cheak spam folder!')
+    })
   }
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
@@ -42,6 +51,7 @@ const AuthProvider = ({ children }) => {
     logout,
     createUserByEmail,
     updateProfileUser,
+    sendVerificationEmail
   };
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>

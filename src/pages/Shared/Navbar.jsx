@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { FaPinterest } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthContexts/AuthProvider";
 import { FaUserCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
+const notify = (msg) => toast(msg);
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const handleLogOut = () => {
     logout()
       .then(() => {
-        alert("logout successfully");
+        notify("logout successfully");
       })
       .catch((error) => {
         console.log(error);
@@ -51,7 +53,7 @@ const Navbar = () => {
               <li className="mb-2">
                 <Link to="/blog">Blog</Link>
               </li>
-              {user?.uid ? (
+              {user?.uid && user?.emailVerified === true ? (
                 <>
                   <li className="mr-2">
                     <Link onClick={handleLogOut}>Logout</Link>
@@ -93,7 +95,7 @@ const Navbar = () => {
             <li className="mr-2">
               <Link to="/blog">Blog</Link>
             </li>
-            {user?.uid ? (
+            {user?.uid && user?.emailVerified === true ? (
               <>
                 <li className="mr-2">
                   <Link onClick={handleLogOut}>Logout</Link>
@@ -115,7 +117,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          {user?.uid ? (
+          {user?.uid && user?.emailVerified === true ? (
             <>
               <span className="mr-3">{user?.displayName}</span>
               <div className="dropdown dropdown-end">
