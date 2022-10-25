@@ -15,3 +15,5 @@ const AuthProvider = ({children}) => {
 };
 
 export default AuthProvider;
+// https://assingment-ten-server.vercel.app/course-categories
+// https://assingment-ten-server.vercel.app/category/all
