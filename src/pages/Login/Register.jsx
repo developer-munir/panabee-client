@@ -1,10 +1,11 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContexts/AuthProvider";
 const Register = () => {
-  const { google } = useContext(AuthContext);
+  const { google, createUserByEmail,updateProfileUser } = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const singInGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
     google(googleProvider)
@@ -13,7 +14,39 @@ const Register = () => {
         console.log(user);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error.message);
+      });
+  };
+  const handleCreateUserByEmail = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.surename.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(password)
+    createUserByEmail(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        handleUpdateProfileUser(name, photo);
+        form.reset();
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
+  const handleUpdateProfileUser = (name, photo) => {
+    const info = {
+      displayName: name,
+      photoURL:photo
+    };
+    updateProfileUser(info)
+      .then(() => {
+        console.log("update successfully");
+      })
+      .catch((error) => {
+        setError(error);
       });
   };
   return (
@@ -30,78 +63,86 @@ const Register = () => {
           </div>
           <div className="card flex-shrink-0 w-full  shadow-2xl bg-base-100">
             <div className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Name</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="sure name"
-                  name="name"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Photo url</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="photo url"
-                  name="photo"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="email"
-                  placeholder="email"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  required
-                />
-                <label className="label">
-                  <Link to="/login" className="label-text-alt link link-hover">
-                    Already have an account?
-                  </Link>
-                </label>
-              </div>
-              <div className="form-control mt-6">
-                <button className="btn btn-primary">Register</button>
-              </div>
-              <div className="md:w-1/2">
-                <div className="mt-3 flex justify-between items-center">
-                  <div className="form-control ">
-                    <button
-                      className="border flex items-center p-2 md:px-10 rounded-lg"
-                      onClick={singInGoogle}
+              <form onSubmit={handleCreateUserByEmail}>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="sure name"
+                    name="surename"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Photo url</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="photo url"
+                    name="photo"
+                    className="input input-bordered"
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="email"
+                    name="email"
+                    className="input input-bordered"
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="password"
+                    name="password"
+                    className="input input-bordered"
+                    required
+                  />
+                  <label className="label">
+                    <Link
+                      to="/login"
+                      className="label-text-alt link link-hover text-[#5A20CB]"
                     >
-                      <span>Sing In Google</span>
-                      <FaGoogle className="ml-2"></FaGoogle>
-                    </button>
-                  </div>
-                  <div className="form-control ">
-                    <button className="border flex items-center p-2 md:px-10 rounded-lg">
-                      <span>Sing In Github</span>
-                      <FaGithub className="ml-2"></FaGithub>
-                    </button>
+                      Already have an account?
+                    </Link>
+                  </label>
+                  <span className="text-red-800">{error}</span>
+                </div>
+                <div className="form-control mt-6">
+                  <button className="btn bg-[#5A20CB]">Register</button>
+                </div>
+                <div className="md:w-1/2">
+                  <div className="mt-3 flex justify-between items-center">
+                    <div className="form-control ">
+                      <button
+                        className="border flex items-center p-2 md:px-10 rounded-lg"
+                        onClick={singInGoogle}
+                      >
+                        <span>Sing In Google</span>
+                        <FaGoogle className="ml-2"></FaGoogle>
+                      </button>
+                    </div>
+                    <div className="form-control ">
+                      <button className="border flex items-center p-2 md:px-10 rounded-lg">
+                        <span>Sing In Github</span>
+                        <FaGithub className="ml-2"></FaGithub>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
