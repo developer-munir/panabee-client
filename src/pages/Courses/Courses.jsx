@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { categoriesDataContext } from "../../contexts/CourseContexts/CategoriesContext";
+import Card from "../Shared/Card";
 import "./courses.css";
 
 const Courses = () => {
   const categoriesData = useContext(categoriesDataContext);
-  // const { id } = categoriesData;
-  console.log(categoriesData);
+  const courseData = useLoaderData();
+  console.log(courseData);
   return (
-    <div className="courses-container h-[100vh]">
-      <div className="bg-red-200">
-        <Link to='/categories/all'>
-          <h1 className="ml-3">All Courses</h1>
+    <div className="courses-container min-h-[100vh]">
+      <div className="bg-[#5A20CB] text-[#CAD5E2]">
+        <Link to="/categories/all">
+          <h1 className="ml-3 mt-2">All Courses</h1>
         </Link>
         {categoriesData?.map((data) => (
           <div className="mt-3 ml-3" key={data?.id}>
@@ -21,8 +22,13 @@ const Courses = () => {
           </div>
         ))}
       </div>
-      <div className="bg-blue-100">
-        <h1>course content</h1>
+      <div className="bg-[#CAD5E2]">
+        <h1 className="text-center text-2xl py-2 font-bold">Courses</h1>
+        <div className="grid md:grid-cols-2 gap-4 p-4 ">
+          {courseData?.map((course) => (
+            <Card key={course._id} course={course}></Card>
+          ))}
+        </div>
       </div>
     </div>
   );
