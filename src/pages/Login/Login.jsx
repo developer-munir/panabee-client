@@ -24,6 +24,7 @@ const Login = () => {
         }
       })
       .then((error) => {
+        notify(error);
         setError(error?.message);
       });
   };

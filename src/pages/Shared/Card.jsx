@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Card = ({ course }) => {
-  console.log(course);
-  const { framework, image_url, details, title, total_view } = course;
+  // console.log(course);
+  const { framework, image_url, details, title } = course;
   return (
     <div>
       <div className="card w-full glass">
