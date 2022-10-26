@@ -7,13 +7,14 @@ import toast from "react-hot-toast";
 const notify = (msg) => toast(msg);
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  console.log(user?.providerData[0]?.providerId === "github.com");
   const handleLogOut = () => {
     logout()
       .then(() => {
         notify("logout successfully");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   };
   return (
@@ -53,7 +54,8 @@ const Navbar = () => {
               <li className="mb-2">
                 <Link to="/blog">Blog</Link>
               </li>
-              {user?.uid && user?.emailVerified === true ? (
+              {(user?.uid && user?.emailVerified === true) ||
+              user?.providerData[0]?.providerId === "github.com" ? (
                 <>
                   <li className="mr-2">
                     <Link onClick={handleLogOut}>Logout</Link>
@@ -95,7 +97,8 @@ const Navbar = () => {
             <li className="mr-2">
               <Link to="/blog">Blog</Link>
             </li>
-            {user?.uid && user?.emailVerified === true ? (
+            {(user?.uid && user?.emailVerified === true) ||
+            user?.providerData[0]?.providerId === "github.com" ? (
               <>
                 <li className="mr-2">
                   <Link onClick={handleLogOut}>Logout</Link>
@@ -117,7 +120,8 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          {user?.uid && user?.emailVerified === true ? (
+          {(user?.uid && user?.emailVerified === true) ||
+          user?.providerData[0]?.providerId === "github.com" ? (
             <>
               <span className="mr-3">{user?.displayName}</span>
               <div className="dropdown dropdown-end">

@@ -1,7 +1,7 @@
-import { GoogleAuthProvider } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContexts/AuthProvider";
 import toast from "react-hot-toast";
 const notify = (msg) => toast(msg);
@@ -11,18 +11,34 @@ const Register = () => {
     createUserByEmail,
     updateProfileUser,
     sendVerificationEmail,
+    gitHub,
   } = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const singInGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
     google(googleProvider)
       .then((result) => {
         const user = result.user;
-        notify('Login successfully')
+        notify("Login successfully");
+        navigate('/categories/all')
         console.log(user);
       })
       .catch((error) => {
         setError(error.message);
+      });
+  };
+  const singInGithub = () => {
+    const provider = new GithubAuthProvider();
+    gitHub(provider)
+      .then((result) => {
+        const user = result.user;
+        notify("Login successfully");
+        navigate("/categories/all");
+        console.log(user);
+      })
+      .catch((error) => {
+        setError(error);
       });
   };
   const handleCreateUserByEmail = (e) => {
@@ -32,7 +48,7 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(password)
+    console.log(password);
     createUserByEmail(email, password)
       .then((result) => {
         const user = result.user;
@@ -48,7 +64,7 @@ const Register = () => {
   const handleUpdateProfileUser = (name, photo) => {
     const info = {
       displayName: name,
-      photoURL:photo
+      photoURL: photo,
     };
     updateProfileUser(info)
       .then(() => {
@@ -144,7 +160,10 @@ const Register = () => {
                       </button>
                     </div>
                     <div className="form-control ">
-                      <button className="border flex items-center p-2 md:px-10 rounded-lg">
+                      <button
+                        className="border flex items-center p-2 md:px-10 rounded-lg"
+                        onClick={singInGithub}
+                      >
                         <span>Sing In Github</span>
                         <FaGithub className="ml-2"></FaGithub>
                       </button>
