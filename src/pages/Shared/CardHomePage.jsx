@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CardHomePage = ({ data }) => {
   const { image_url, name, details } = data;
   return (
-    <div>
+    <div data-aos="zoom-out-up">
       <div className="card w-full bg-base-100 shadow-xl">
         <figure>
           <img src={image_url} alt="banner not found" className="h-[200px]" />
@@ -16,7 +16,7 @@ const CardHomePage = ({ data }) => {
           </h2>
           <p>{details?.slice(0, 150)}...</p>
           <div className="card-actions justify-end">
-            <Link to='/categories/all'>
+            <Link to="/categories/all">
               <div className="badge badge-outline">See</div>
             </Link>
           </div>

@@ -3,7 +3,7 @@ import React from 'react';
 const Premeimum = () => {
     return (
         <div>
-            <h1>Premium access</h1>
+            <h1>Premium</h1>
         </div>
     );
 };

@@ -8,6 +8,8 @@ import Register from "../pages/Login/Register";
 import Error from "../pages/Shared/Error";
 import Premeimum from "../pages/Shared/Premeimum";
 import SeeDetails from "../pages/Shared/SeeDetails";
+import PrivateRouter from "./PrivateRouter/PrivateRouter";
+
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -58,7 +60,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/premium/:id",
-        element:<Premeimum></Premeimum>
+        element: (
+          <PrivateRouter>
+            <Premeimum></Premeimum>
+          </PrivateRouter>
+        ),
       },
     ],
   },

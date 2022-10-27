@@ -7,8 +7,8 @@ import CoursesDetails from "./CoursesDetails";
 const Courses = () => {
   const categoriesData = useContext(categoriesDataContext);
   const courseData = useLoaderData();
-  const [categoriesName, setCategoriesName] = useState('All Courses');
-  // console.log(courseData);
+  const [categoriesName, setCategoriesName] = useState("All Courses");
+  console.log(courseData);
   const handleClickableName = (e) => {
     setCategoriesName(e.target.innerText);
   };
@@ -20,8 +20,7 @@ const Courses = () => {
         </Link>
         {categoriesData?.map((data) => (
           <div className="mt-3 ml-3" key={data?.id}>
-            <Link
-            >
+            <Link to={`/categories/${data?.id}`} onClick={handleClickableName}>
               <span>{data?.name}</span>
             </Link>
           </div>

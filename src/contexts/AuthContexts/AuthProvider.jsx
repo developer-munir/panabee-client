@@ -18,16 +18,21 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [seeDetails, setSeeDetails] = useState(null);
+  const [spinner, setSpiner] = useState(true);
   const google = (googleProvider) => {
+    setSpiner(true);
     return signInWithPopup(auth, googleProvider);
   };
   const gitHub = (gitHubProvider) => {
+    setSpiner(true);
     return signInWithPopup(auth, gitHubProvider);
   };
-  const createUserByEmail = (email,password) => {
+  const createUserByEmail = (email, password) => {
+    setSpiner(true);
     return createUserWithEmailAndPassword(auth, email, password);
   }
   const updateProfileUser = (info) => {
+    setSpiner(true);
     return updateProfile(auth.currentUser, info);
   }
   const sendVerificationEmail = () => {
@@ -37,14 +42,17 @@ const AuthProvider = ({ children }) => {
     })
   }
   const login = (email, password) => {
+    setSpiner(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
   const logout = () => {
+    setSpiner(true);
     return signOut(auth);
   }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setSpiner(false);
     });
     return ()=> unsubscribe();
   }, []);
@@ -63,6 +71,7 @@ const AuthProvider = ({ children }) => {
     gitHub,
     handleDetails,
     seeDetails,
+    spinner,
   };
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>

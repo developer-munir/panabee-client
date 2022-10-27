@@ -32,7 +32,7 @@ const Header = () => {
         </div>
       </div>
       <div>
-        <img src={asset2} alt="" />
+        <img src={asset2} alt="" data-aos="fade-left" />
       </div>
     </div>
   );

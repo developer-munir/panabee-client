@@ -1,7 +1,7 @@
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContexts/AuthProvider";
 import toast from "react-hot-toast";
 const notify = (msg) => toast(msg);
@@ -15,13 +15,16 @@ const Register = () => {
   } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/register";
   const singInGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
     google(googleProvider)
       .then((result) => {
         const user = result.user;
         notify("Login successfully");
-        navigate('/categories/all')
+
+        navigate(from, { replace: true });
         console.log(user);
       })
       .catch((error) => {
@@ -34,7 +37,8 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         notify("Login successfully");
-        navigate("/categories/all");
+
+        navigate(from, { replace: true });
         console.log(user);
       })
       .catch((error) => {
