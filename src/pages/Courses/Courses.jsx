@@ -20,7 +20,8 @@ const Courses = () => {
         </Link>
         {categoriesData?.map((data) => (
           <div className="mt-3 ml-3" key={data?.id}>
-            <Link onClick={handleClickableName} to={`/categories/${data?.id}`}>
+            <Link
+            >
               <span>{data?.name}</span>
             </Link>
           </div>

@@ -6,6 +6,8 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Login/Register";
 import Error from "../pages/Shared/Error";
+import Premeimum from "../pages/Shared/Premeimum";
+import SeeDetails from "../pages/Shared/SeeDetails";
 
 const { createBrowserRouter } = require("react-router-dom");
 
@@ -45,8 +47,18 @@ export const router = createBrowserRouter([
       {
         path: "/categories/:id",
         element: <Courses></Courses>,
-        loader: ({params}) =>
-          fetch(`https://assingment-ten-server.vercel.app/category/${params.id}`),
+        loader: ({ params }) =>
+          fetch(
+            `https://assingment-ten-server.vercel.app/category/${params.id}`
+          ),
+      },
+      {
+        path: "/seeDetails/:id",
+        element: <SeeDetails></SeeDetails>,
+      },
+      {
+        path: "/premium/:id",
+        element:<Premeimum></Premeimum>
       },
     ],
   },

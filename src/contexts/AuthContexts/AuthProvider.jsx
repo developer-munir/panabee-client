@@ -17,6 +17,7 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [seeDetails, setSeeDetails] = useState(null);
   const google = (googleProvider) => {
     return signInWithPopup(auth, googleProvider);
   };
@@ -47,6 +48,10 @@ const AuthProvider = ({ children }) => {
     });
     return ()=> unsubscribe();
   }, []);
+  const handleDetails = (details) => {
+    console.log(details);
+    setSeeDetails(details);
+  }
   const userInfo = {
     google,
     login,
@@ -56,6 +61,8 @@ const AuthProvider = ({ children }) => {
     updateProfileUser,
     sendVerificationEmail,
     gitHub,
+    handleDetails,
+    seeDetails,
   };
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>

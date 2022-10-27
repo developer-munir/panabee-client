@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContexts/AuthProvider';
-import Header from './Header';
+import React from "react";
+import DisplayCoursesHome from "../Courses/DisplayCoursesHome";
+import Header from "./Header";
 
 const Home = () => {
-    const { name } = useContext(AuthContext);
-    console.log(name)
-    return (
-        <div>
-            <Header></Header>
-        </div>
-    );
+  return (
+    <div>
+      <Header></Header>
+      <DisplayCoursesHome></DisplayCoursesHome>
+    </div>
+  );
 };
 
 export default Home;
