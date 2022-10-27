@@ -123,7 +123,6 @@ const Navbar = () => {
           {(user?.uid && user?.emailVerified === true) ||
           user?.providerData[0]?.providerId === "github.com" ? (
             <>
-              <span className="mr-3">{user?.displayName}</span>
               <div className="dropdown dropdown-end">
                 <label className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
